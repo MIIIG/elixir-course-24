@@ -1,0 +1,2 @@
+dial:
+	mix dialyzer

@@ -10,7 +10,7 @@ defmodule Calc do
       4
 
       iex> Calc.add("2", "2")
-      "Bad argument!"
+      ** (RuntimeError) Bad argument!
   """
   @spec add(number(), number()) :: number()
   def add(x, y) when is_number(x) and is_number(y) do
@@ -26,11 +26,11 @@ defmodule Calc do
     2
 
     iex> Calc.sub("4", "2")
-    "Bad argument!"
+    ** (RuntimeError) Bad argument!
   """
 
   @spec sub(number(), number()) :: number()
-  def sub(x, y) when number(x) and number(y) do
+  def sub(x, y) when is_number(x) and is_number(y) do
     x - y
   end
 
@@ -43,7 +43,7 @@ defmodule Calc do
     15
 
     iex> Calc.multi("3", "5")
-    "Bad argument!"
+    ** (RuntimeError) Bad argument!
   """
 
   @spec multi(number(), number()) :: number()
@@ -60,10 +60,10 @@ defmodule Calc do
     5.0
 
     iex> Calc.div(15, 0)
-    "Bad argument in arithmetic expression: second parametr cant be 0"
+    ** (RuntimeError) Bad argument in arithmetic expression: second parametr can't be 0
 
     iex> Calc.div("15", "3")
-    "Bad argument!"
+    ** (RuntimeError) Bad argument!
   """
 
   @spec div(number(), number()) :: float() | :error
