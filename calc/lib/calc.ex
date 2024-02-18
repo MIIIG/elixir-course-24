@@ -12,16 +12,12 @@ defmodule Calc do
       iex> Calc.add("2", "2")
       "Bad argument!"
   """
-  @spec add(integer() | float(), integer() | float()) :: integer() | float()
-  def add(x, y)
-      when is_integer(x) or
-             is_float(x) or
-             is_integer(y) or
-             is_float(y) do
+  @spec add(number(), number()) :: number()
+  def add(x, y) when is_number(x) and is_number(y) do
     x + y
   end
 
-  def add(_x, _y), do: "Bad argument!"
+  def add(_x, _y), do: raise("Bad argument!")
 
   @doc """
   ## Subtraction
@@ -33,16 +29,12 @@ defmodule Calc do
     "Bad argument!"
   """
 
-  @spec sub(integer() | float(), integer() | float()) :: integer() | float()
-  def sub(x, y)
-      when is_integer(x) or
-             is_float(x) or
-             is_integer(y) or
-             is_float(y) do
+  @spec sub(number(), number()) :: number()
+  def sub(x, y) when number(x) and number(y) do
     x - y
   end
 
-  def sub(_x, _y), do: "Bad argument!"
+  def sub(_x, _y), do: raise("Bad argument!")
 
   @doc """
   ## Multuply
@@ -54,16 +46,12 @@ defmodule Calc do
     "Bad argument!"
   """
 
-  @spec multi(integer() | float(), integer() | float()) :: integer() | float() | :error
-  def multi(x, y)
-      when is_integer(x) or
-             is_float(x) or
-             is_integer(y) or
-             is_float(y) do
+  @spec multi(number(), number()) :: number()
+  def multi(x, y) when is_number(x) and is_number(y) do
     x * y
   end
 
-  def multi(_x, _y), do: "Bad argument!"
+  def multi(_x, _y), do: raise("Bad argument!")
 
   @doc """
   ## Division
@@ -78,18 +66,14 @@ defmodule Calc do
     "Bad argument!"
   """
 
-  @spec div(integer(), integer() | float()) :: float()
+  @spec div(number(), number()) :: float() | :error
   def div(_x, y) when y == 0 do
-    "Bad argument in arithmetic expression: second parametr cant be 0"
+    raise "Bad argument in arithmetic expression: second parametr can't be 0"
   end
 
-  def div(x, y)
-      when is_integer(x) or
-             is_float(x) or
-             is_integer(y) or
-             is_float(y) do
+  def div(x, y) when is_number(x) and is_number(y) do
     x / y
   end
 
-  def div(_x, _y), do: "Bad argument!"
+  def div(_x, _y), do: raise("Bad argument!")
 end
