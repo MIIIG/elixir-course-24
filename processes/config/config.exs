@@ -1,3 +1,3 @@
 import Config
 
-import_config "generated_config.exs"
+# import_config "generated_config.exs"

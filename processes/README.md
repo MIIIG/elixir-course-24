@@ -1,6 +1,23 @@
 # Processes
 
-**TODO: Add description**
+Запускаем в консоли родительскую ноду:
+
+```bash
+$ iex --name node@localhost -S mix
+```
+
+Запускаем в консоли вторую ноду:
+
+```bash
+$ iex --name node1@127.0.0.1 -S mix
+```
+
+Чтобы постучаться на нужную ноду, надо выполнить в консоли:
+
+```bash
+$ Node.spawn(:"node1@127.0.0.1", fn -> Processes.ping(node()) end)
+$ #PID<22148.213.0>
+```
 
 ## Installation
 
@@ -14,8 +31,3 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/processes>.
-

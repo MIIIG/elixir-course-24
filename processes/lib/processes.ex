@@ -3,27 +3,23 @@ defmodule Processes do
   Documentation for `Processes`.
   """
 
-  @doc """
-  $ NODES=5 iex -S mix
-  стартует 5 нод, к которым можно прицепиться
-  как в примере ниже
+  use GenServer
 
-  ## Examples
+  # Client
 
-      iex> Node.connect(:"node1@localhost")
-      :true
+  @spec start_link() :: GenServer.on_start()
+  def start_link(), do: GenServer.start_link(__MODULE__, name: __MODULE__)
 
-  """
+  @spec ping(pid()) :: tuple()
+  def ping(pid), do: GenServer.call(pid, :ping)
 
-  def start_link do
-    nodes = Application.get_env(:processes, Processes)[:nodes]
-    Enum.each(nodes, fn i -> start_node(i) end)
-  end
+  # Server (callbacks)
 
-  defp start_node(%{name: name, type: type}) do
-    case type do
-      :sname -> Node.start(:"#{name}", :shortnames)
-      :name -> Node.start(:"#{name}")
-    end
+  @impl true
+  def init(state), do: {:ok, state}
+
+  @impl true
+  def handle_call(:ping, _from, _state) do
+    {:reply, {:pong, node()}}
   end
 end
